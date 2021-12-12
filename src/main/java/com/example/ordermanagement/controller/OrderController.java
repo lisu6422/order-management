@@ -7,6 +7,7 @@ import com.example.ordermanagement.dto.CreateOrderDTO;
 import com.example.ordermanagement.dto.OrderResponse;
 import com.example.ordermanagement.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,5 +26,10 @@ public class OrderController {
     public OrderResponse createOrder(@RequestBody CreateOrderDTO createOrderDTO) {
         String orderNumber = orderService.createOrder(ORDER_MAPPER.toOrderBO(createOrderDTO));
         return OrderResponse.builder().orderNo(orderNumber).build();
+    }
+
+    @PostMapping("/{orderNo}/cancellation")
+    public void cancelOrder(@PathVariable String orderNo) {
+        orderService.cancelOrder(orderNo);
     }
 }

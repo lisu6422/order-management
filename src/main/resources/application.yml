@@ -1,2 +1,10 @@
 server:
   port: 8081
+
+  rabbitmq:
+    addresses: 127.0.0.1:5672
+    connection-timeout: 10000
+    password: guest
+    publisher-confirms: true
+    username: guest
+    virtual-host: /

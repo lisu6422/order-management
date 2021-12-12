@@ -2,21 +2,29 @@ package com.example.ordermanagement.service;
 
 import static com.example.ordermanagement.infrastructure.client.dto.FoodStatus.ON_SHELVE;
 import static com.example.ordermanagement.infrastructure.client.dto.FoodStatus.UNDER_CARRIAGE;
+import static com.example.ordermanagement.infrastructure.entity.OrderStatus.IN_DELIVERY;
+import static com.example.ordermanagement.infrastructure.entity.OrderStatus.IN_PREPARATION;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.example.ordermanagement.bo.OrderBO;
 import com.example.ordermanagement.bo.OrderItemBO;
 import com.example.ordermanagement.exception.FoodsIsUnderCarriageException;
 import com.example.ordermanagement.exception.FoodsNotFoundException;
+import com.example.ordermanagement.exception.OrderCanNotCancelException;
 import com.example.ordermanagement.infrastructure.client.FoodClient;
 import com.example.ordermanagement.infrastructure.client.dto.FoodDTO;
 import com.example.ordermanagement.infrastructure.entity.Order;
+import com.example.ordermanagement.infrastructure.mq.OrderCancelRabbitSender;
 import com.example.ordermanagement.infrastructure.repository.OrderRepository;
 import com.rabbitmq.http.client.HttpException;
+import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -30,6 +38,9 @@ class OrderServiceTest {
 
     @Mock
     private OrderRepository orderRepository;
+
+    @Mock
+    private OrderCancelRabbitSender orderCancelRabbitSender;
 
     @InjectMocks
     private OrderService orderService;
@@ -91,5 +102,46 @@ class OrderServiceTest {
                 .build();
 
         assertThrows(HttpException.class, () -> orderService.createOrder(orderBO));
+    }
+
+    @Test
+    void should_cancel_order_success() {
+        String orderNo = "O01";
+        Order order = Order.builder()
+                .orderNo("O01")
+                .status(IN_PREPARATION)
+                .createdAt(LocalDateTime.now().minusMinutes(20))
+                .preparationTime(10L).build();
+        when(orderRepository.findByOrderNo(orderNo)).thenReturn(Optional.of(order));
+        when(orderRepository.save(any())).thenReturn(order);
+        orderService.cancelOrder(orderNo);
+
+        verify(orderRepository, times(1)).save(any());
+    }
+
+    @Test
+    void should_cancel_order_failed_when_order_is_in_delivery() {
+        String orderNo = "O01";
+        Order order = Order.builder()
+                .orderNo("O01")
+                .status(IN_DELIVERY)
+                .createdAt(LocalDateTime.now().minusMinutes(20))
+                .preparationTime(10L).build();
+        when(orderRepository.findByOrderNo(orderNo)).thenReturn(Optional.of(order));
+
+        assertThrows(OrderCanNotCancelException.class, () -> orderService.cancelOrder(orderNo));
+    }
+
+    @Test
+    void should_cancel_order_failed_when_order_is_not_overtime() {
+        String orderNo = "O01";
+        Order order = Order.builder()
+                .orderNo("O01")
+                .status(IN_PREPARATION)
+                .createdAt(LocalDateTime.now().minusMinutes(10))
+                .preparationTime(20L).build();
+        when(orderRepository.findByOrderNo(orderNo)).thenReturn(Optional.of(order));
+
+        assertThrows(OrderCanNotCancelException.class, () -> orderService.cancelOrder(orderNo));
     }
 }

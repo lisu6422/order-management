@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.example.ordermanagement.dto.CreateOrderDTO;
 import com.example.ordermanagement.dto.CreateOrderItemDTO;
+import com.example.ordermanagement.exception.OrderCanNotCancelException;
 import com.example.ordermanagement.service.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 class OrderControllerTest {
+
     @Mock
     private OrderService orderService;
 
@@ -50,5 +52,12 @@ class OrderControllerTest {
                                 .content(objectMapper.writeValueAsString(createOrderDTO))
                 )
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void should_cancel_order_success() throws Exception {
+        mockMvc.perform(
+                        post("/orders/O01/cancellation"))
+                .andExpect(status().isOk());
     }
 }
