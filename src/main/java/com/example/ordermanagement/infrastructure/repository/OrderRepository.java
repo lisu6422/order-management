@@ -1,6 +1,6 @@
 package com.example.ordermanagement.infrastructure.repository;
 
-import com.example.ordermanagement.infrastructure.entity.Order;
+import com.example.ordermanagement.infrastructure.repository.entity.Order;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

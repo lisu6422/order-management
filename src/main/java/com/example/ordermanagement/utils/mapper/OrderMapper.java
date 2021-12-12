@@ -1,8 +1,8 @@
-package com.example.ordermanagement.mapper;
+package com.example.ordermanagement.utils.mapper;
 
-import com.example.ordermanagement.bo.OrderBO;
-import com.example.ordermanagement.dto.CreateOrderDTO;
-import com.example.ordermanagement.infrastructure.entity.Order;
+import com.example.ordermanagement.service.bo.OrderBO;
+import com.example.ordermanagement.controller.dto.CreateOrderDTO;
+import com.example.ordermanagement.infrastructure.repository.entity.Order;
 import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

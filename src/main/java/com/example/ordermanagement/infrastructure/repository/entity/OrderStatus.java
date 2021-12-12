@@ -1,4 +1,4 @@
-package com.example.ordermanagement.infrastructure.entity;
+package com.example.ordermanagement.infrastructure.repository.entity;
 
 public enum OrderStatus {
     CREATED,

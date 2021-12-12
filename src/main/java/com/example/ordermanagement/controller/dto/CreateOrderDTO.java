@@ -1,4 +1,4 @@
-package com.example.ordermanagement.dto;
+package com.example.ordermanagement.controller.dto;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

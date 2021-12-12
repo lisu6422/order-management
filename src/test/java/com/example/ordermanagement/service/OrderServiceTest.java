@@ -2,8 +2,8 @@ package com.example.ordermanagement.service;
 
 import static com.example.ordermanagement.infrastructure.client.dto.FoodStatus.ON_SHELVE;
 import static com.example.ordermanagement.infrastructure.client.dto.FoodStatus.UNDER_CARRIAGE;
-import static com.example.ordermanagement.infrastructure.entity.OrderStatus.IN_DELIVERY;
-import static com.example.ordermanagement.infrastructure.entity.OrderStatus.IN_PREPARATION;
+import static com.example.ordermanagement.infrastructure.repository.entity.OrderStatus.IN_DELIVERY;
+import static com.example.ordermanagement.infrastructure.repository.entity.OrderStatus.IN_PREPARATION;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -11,14 +11,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.example.ordermanagement.bo.OrderBO;
-import com.example.ordermanagement.bo.OrderItemBO;
+import com.example.ordermanagement.service.bo.OrderBO;
+import com.example.ordermanagement.service.bo.OrderItemBO;
 import com.example.ordermanagement.exception.FoodsIsUnderCarriageException;
 import com.example.ordermanagement.exception.FoodsNotFoundException;
 import com.example.ordermanagement.exception.OrderCanNotCancelException;
 import com.example.ordermanagement.infrastructure.client.FoodClient;
 import com.example.ordermanagement.infrastructure.client.dto.FoodDTO;
-import com.example.ordermanagement.infrastructure.entity.Order;
+import com.example.ordermanagement.infrastructure.repository.entity.Order;
 import com.example.ordermanagement.infrastructure.mq.OrderCancelRabbitSender;
 import com.example.ordermanagement.infrastructure.repository.OrderRepository;
 import com.rabbitmq.http.client.HttpException;

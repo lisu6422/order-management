@@ -1,17 +1,17 @@
 package com.example.ordermanagement.service;
 
 import static com.example.ordermanagement.infrastructure.client.dto.FoodStatus.UNDER_CARRIAGE;
-import static com.example.ordermanagement.mapper.OrderMapper.ORDER_MAPPER;
+import static com.example.ordermanagement.utils.mapper.OrderMapper.ORDER_MAPPER;
 import static java.util.stream.Collectors.toList;
 
-import com.example.ordermanagement.bo.OrderBO;
+import com.example.ordermanagement.service.bo.OrderBO;
 import com.example.ordermanagement.exception.FoodsIsUnderCarriageException;
 import com.example.ordermanagement.exception.FoodsNotFoundException;
 import com.example.ordermanagement.exception.OrderCanNotCancelException;
 import com.example.ordermanagement.exception.OrderNoFoundException;
 import com.example.ordermanagement.infrastructure.client.FoodClient;
 import com.example.ordermanagement.infrastructure.client.dto.FoodDTO;
-import com.example.ordermanagement.infrastructure.entity.Order;
+import com.example.ordermanagement.infrastructure.repository.entity.Order;
 import com.example.ordermanagement.infrastructure.mq.OrderCancelRabbitSender;
 import com.example.ordermanagement.infrastructure.repository.OrderRepository;
 import java.util.List;

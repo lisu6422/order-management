@@ -1,10 +1,10 @@
 package com.example.ordermanagement.controller;
 
-import static com.example.ordermanagement.mapper.OrderMapper.ORDER_MAPPER;
+import static com.example.ordermanagement.utils.mapper.OrderMapper.ORDER_MAPPER;
 import static org.springframework.http.HttpStatus.CREATED;
 
-import com.example.ordermanagement.dto.CreateOrderDTO;
-import com.example.ordermanagement.dto.OrderResponse;
+import com.example.ordermanagement.controller.dto.CreateOrderDTO;
+import com.example.ordermanagement.controller.dto.OrderResponse;
 import com.example.ordermanagement.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;

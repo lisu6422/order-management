@@ -3,8 +3,8 @@ package com.example.ordermanagement.infrastructure.repository;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.example.ordermanagement.OrderManagementApplication;
-import com.example.ordermanagement.infrastructure.entity.Order;
-import com.example.ordermanagement.infrastructure.entity.OrderItem;
+import com.example.ordermanagement.infrastructure.repository.entity.Order;
+import com.example.ordermanagement.infrastructure.repository.entity.OrderItem;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

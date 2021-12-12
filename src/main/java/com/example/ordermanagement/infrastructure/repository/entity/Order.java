@@ -1,6 +1,6 @@
-package com.example.ordermanagement.infrastructure.entity;
+package com.example.ordermanagement.infrastructure.repository.entity;
 
-import static com.example.ordermanagement.infrastructure.entity.OrderStatus.IN_PREPARATION;
+import static com.example.ordermanagement.infrastructure.repository.entity.OrderStatus.IN_PREPARATION;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

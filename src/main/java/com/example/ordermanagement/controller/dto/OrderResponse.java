@@ -1,6 +1,5 @@
-package com.example.ordermanagement.bo;
+package com.example.ordermanagement.controller.dto;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class OrderBO {
-    private List<OrderItemBO> items;
+public class OrderResponse {
+    private String orderNo;
 }
